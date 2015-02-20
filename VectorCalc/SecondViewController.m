@@ -11,6 +11,11 @@
 @interface SecondViewController ()
 
 @property (weak, nonatomic) IBOutlet UIView *graphView;
+@property (weak, nonatomic) IBOutlet UILabel *additionLabel;
+@property (weak, nonatomic) IBOutlet UILabel *productLabel;
+@property (weak, nonatomic) IBOutlet UILabel *vectorOneLabel;
+@property (weak, nonatomic) IBOutlet UILabel *vectorTwoLabel;
+@property (weak, nonatomic) IBOutlet UILabel *vectorThreeLabel;
 
 @end
 

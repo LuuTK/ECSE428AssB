@@ -354,7 +354,12 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Second" image="second" id="cPa-gy-q4n"/>
                     <connections>
+                        <outlet property="additionLabel" destination="tex-9E-cPR" id="n7s-rR-Ws2"/>
                         <outlet property="graphView" destination="FZ2-ET-wQ4" id="NGQ-e1-0Wi"/>
+                        <outlet property="productLabel" destination="dW9-tj-r9V" id="i4G-Fg-nrG"/>
+                        <outlet property="vectorOneLabel" destination="flh-uR-EXE" id="IgO-sn-jo1"/>
+                        <outlet property="vectorThreeLabel" destination="5Ad-EZ-W2B" id="Z8K-w7-NiN"/>
+                        <outlet property="vectorTwoLabel" destination="tdt-Z5-8q8" id="2zX-34-xNL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
