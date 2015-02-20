@@ -135,7 +135,7 @@
     return YES;
 }
 
-- (BOOL)isValidFloat:(NSString*)input  {
+- (BOOL)isValidFloat:(NSString*)input {
     BOOL result = NO;
     // strip negative sign
     if([input hasPrefix:@"-"]) input = [input substringFromIndex:1];
@@ -165,6 +165,20 @@
 
 - (BOOL)hasAtLeastTwoVectors {
     return (self.vectorOneX.text.length != 0 && self.vectorOneY.text.length != 0 && self.vectorTwoX.text.length != 0 && self.vectorTwoY.text.length != 0) || (self.vectorOneX.text.length != 0 && self.vectorOneY.text.length != 0 && self.vectorThreeX.text.length != 0 && self.vectorThreeY.text.length != 0) || (self.vectorTwoX.text.length != 0 && self.vectorTwoY.text.length != 0 && self.vectorThreeX.text.length != 0 && self.vectorThreeY.text.length != 0) || (self.vectorOneX.text.length != 0 && self.vectorOneY.text.length != 0 && self.vectorTwoX.text.length != 0 && self.vectorTwoY.text.length != 0 && self.vectorThreeX.text.length != 0 && self.vectorThreeY.text.length != 0);
+}
+
+- (NSInteger)numberOfVectors {
+    int count = 0;
+    if (self.vectorOneX.text.length != 0 && self.vectorOneY.text.length != 0) {
+        count++;
+    }
+    if (self.vectorTwoX.text.length !=0 && self.vectorTwoY.text.length != 0) {
+        count++;
+    }
+    if (self.vectorThreeX.text.length != 0 && self.vectorThreeY.text.length != 0) {
+        count++;
+    }
+    return count;
 }
 
 - (float)addTwoVectors:(float)firstVector secondVector:(float)secondVector {
