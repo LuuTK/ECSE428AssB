@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CGVectorAdditions.h"
 
 @interface FirstViewController : UIViewController <UITextFieldDelegate>
 
@@ -21,24 +22,37 @@
 @property (weak, nonatomic) IBOutlet UILabel *scalarLabel;
 @property (weak, nonatomic) IBOutlet UILabel *vectorLabel;
 
+// YES Cartesian mode - NO Polar mode
 @property BOOL isCurrentCartesian;
 
-@property int numberVectors;
+// Total number of vectors non-nil
+@property NSInteger numberVectors;
 
+// Vectors 1,2,3 YES non-il - NO nil
+@property BOOL isVectorOne;
+@property BOOL isVectorTwo;
+@property BOOL isVectorThree;
+
+// Vectors 1,2,3 in cartesian coords
 @property CGVector vectorOneCartesian;
 @property CGVector vectorTwoCartesian;
 @property CGVector vectorThreeCartesian;
 
+// Vectors 1,2,3 in polar coords
 @property CGVector vectorOnePolar;
 @property CGVector vectorTwoPolar;
 @property CGVector vectorThreePolar;
 
+// Sum vector in cartesian coords
 @property CGVector sumCartesian;
-@property CGVector scalarCartesian;
+// Vector product in cartesian coords
 @property CGVector vectorCartesian;
+// Scalar product in float
+@property CGFloat scalarCartesian;
 
+// Sum vector in polar coords
 @property CGVector sumPolar;
-@property CGVector scalarPolar;
+// Vector product in polar coords
 @property CGVector vectorPolar;
 
 @end

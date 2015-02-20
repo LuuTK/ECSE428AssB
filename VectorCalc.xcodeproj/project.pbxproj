@@ -28,6 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E934DF011A97B1E700D3C000 /* CGVectorAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGVectorAdditions.h; sourceTree = "<group>"; };
 		E9F74FC31A96D2F800AB917D /* VectorCalc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VectorCalc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9F74FC71A96D2F800AB917D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E9F74FC81A96D2F800AB917D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -86,6 +87,7 @@
 			children = (
 				E9F74FCA1A96D2F800AB917D /* AppDelegate.h */,
 				E9F74FCB1A96D2F800AB917D /* AppDelegate.m */,
+				E934DF011A97B1E700D3C000 /* CGVectorAdditions.h */,
 				E9F74FCD1A96D2F800AB917D /* FirstViewController.h */,
 				E9F74FCE1A96D2F800AB917D /* FirstViewController.m */,
 				E9F74FD01A96D2F800AB917D /* SecondViewController.h */,
@@ -418,6 +420,7 @@
 				E9F74FEB1A96D2F800AB917D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E9F74FEC1A96D2F800AB917D /* Build configuration list for PBXNativeTarget "VectorCalcTests" */ = {
 			isa = XCConfigurationList;
@@ -426,6 +429,7 @@
 				E9F74FEE1A96D2F800AB917D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

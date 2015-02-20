@@ -13,6 +13,7 @@
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *leftUnitLabels;
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *rightUnitLabels;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentForm;
+@property BOOL shouldDisplayResults;
 
 @end
 
@@ -24,9 +25,14 @@
     } else if (self.segmentForm.selectedSegmentIndex == 1) {
         [self changeToPolar];
     }
+    [self displayResults];
 }
 
 - (IBAction)computePushed:(id)sender {
+    if ([self isAllValidInput] == NO) return;
+    [self storeVectors];
+    [self compute];
+    [self displayResults];
 }
 
 - (void)viewDidLoad {
@@ -34,7 +40,7 @@
     // Do any additional setup after loading the view, typically from a nib.
     
     [self changeToCartesian];
-    [self clearResult];
+    [self clearDisplayResults];
     
     self.vectorOneX.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     self.vectorOneX.autocorrectionType = UITextAutocorrectionTypeNo;
@@ -82,6 +88,11 @@
         [textField setTextColor:[UIColor redColor]];
     }
     return YES;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    self.shouldDisplayResults = NO;
+    [self clearDisplayResults];
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
@@ -194,30 +205,146 @@
 
 - (NSInteger)numberOfVectors {
     int count = 0;
+    self.isVectorOne = NO;
+    self.isVectorTwo = NO;
+    self.isVectorThree = NO;
     if (self.vectorOneX.text.length != 0 && self.vectorOneY.text.length != 0) {
-        count++;
+        self.isVectorOne = YES;
+        count ++;
     }
     if (self.vectorTwoX.text.length !=0 && self.vectorTwoY.text.length != 0) {
+        self.isVectorTwo = YES;
         count++;
     }
     if (self.vectorThreeX.text.length != 0 && self.vectorThreeY.text.length != 0) {
+        self.isVectorThree = YES;
         count++;
     }
     return count;
 }
 
+- (void)storeVectors {
+    self.numberVectors = [self numberOfVectors];
+    if (self.isCurrentCartesian == YES) {
+        if (self.isVectorOne) {
+            self.vectorOneCartesian = CGVectorMake(self.vectorOneX.text.floatValue,self.vectorOneY.text.floatValue);
+            self.vectorOnePolar = CGVectorMake(CGVectorLength(self.vectorOneCartesian), CGVectorAngle(self.vectorOneCartesian));
+        }
+        if (self.isVectorTwo) {
+            self.vectorTwoCartesian = CGVectorMake(self.vectorTwoX.text.floatValue,self.vectorTwoY.text.floatValue);
+            self.vectorTwoPolar = CGVectorMake(CGVectorLength(self.vectorTwoCartesian), CGVectorAngle(self.vectorTwoCartesian));
+        }
+        if (self.isVectorThree) {
+            self.vectorThreeCartesian = CGVectorMake(self.vectorThreeX.text.floatValue,self.vectorThreeY.text.floatValue);
+            self.vectorThreePolar = CGVectorMake(CGVectorLength(self.vectorThreeCartesian), CGVectorAngle(self.vectorThreeCartesian));
+        }
+    } else if (self.isCurrentCartesian == NO) {
+        if (self.isVectorOne) {
+            self.vectorOnePolar = CGVectorMake(self.vectorOneX.text.floatValue,self.vectorOneY.text.floatValue);
+            self.vectorOneCartesian = [self polarToCartesian:self.vectorOnePolar];
+        }
+        if (self.isVectorTwo) {
+            self.vectorTwoPolar = CGVectorMake(self.vectorTwoX.text.floatValue,self.vectorTwoY.text.floatValue);
+            self.vectorTwoCartesian = [self polarToCartesian:self.vectorTwoPolar];
+        }
+        if (self.isVectorThree) {
+            self.vectorThreePolar = CGVectorMake(self.vectorThreeX.text.floatValue,self.vectorThreeY.text.floatValue);
+            self.vectorThreeCartesian = [self polarToCartesian:self.vectorThreePolar];
+        }
+    }
+}
+
 - (void)compute {
-    
+    self.shouldDisplayResults = YES;
+    [self addition];
+    [self scalarProduct];
+    [self vectorProduct];
 }
 
-- (void)displayResult {
+- (void)displayResults {
+    if (self.shouldDisplayResults == NO) return;
+    NSString *sumPrefix = @"The sum is";
+    NSString *vectorPrefix = @"The vector product is";
+    NSString *scalarPrefix = @"The scalar product is";
     
+    if (self.isCurrentCartesian == YES) {
+        self.sumLabel.text = [NSString stringWithFormat:@"%@ %.2fî %.2fĵ", sumPrefix, self.sumCartesian.dx, self.sumCartesian.dy];
+        self.vectorLabel.text = [NSString stringWithFormat:@"%@ %.2fî %.2fĵ", vectorPrefix, self.vectorCartesian.dx, self.vectorCartesian.dy];
+    } else if (self.isCurrentCartesian == NO) {
+        self.sumLabel.text = [NSString stringWithFormat:@"%@ %.2fȓ %.2f°", sumPrefix, self.sumPolar.dx, self.sumPolar.dy];
+        self.vectorLabel.text = [NSString stringWithFormat:@"%@ %.2fȓ %.2fĵ°", vectorPrefix, self.vectorPolar.dx, self.vectorPolar.dy];
+    }
+
+    // Scalar product
+    if (self.numberVectors > 2) {
+        self.scalarLabel.text = @"";
+    } else {
+        self.scalarLabel.text = [NSString stringWithFormat:@"%@ %.2f", scalarPrefix, self.scalarCartesian];
+    }
+
 }
 
-- (void)clearResult {
+- (void)clearDisplayResults {
     self.sumLabel.text = @"";
     self.scalarLabel.text = @"";
     self.vectorLabel.text = @"";
+}
+
+- (void)addition {
+    self.sumCartesian = CGVectorMake(0.0, 0.0);
+    if (self.isVectorOne) self.sumCartesian = [self addTwoVectorsCartesian:self.sumCartesian second:self.vectorOneCartesian];
+    if (self.isVectorTwo) self.sumCartesian = [self addTwoVectorsCartesian:self.sumCartesian second:self.vectorTwoCartesian];
+    if (self.isVectorThree) self.sumCartesian = [self addTwoVectorsCartesian:self.sumCartesian second:self.vectorThreeCartesian];
+    self.sumPolar = [self cartesianToPolar:self.sumCartesian];
+}
+
+- (void)scalarProduct {
+    if (self.isVectorOne && self.isVectorTwo) {
+        self.scalarCartesian = [self scalarProductTwoVectorsCartesian:self.vectorOneCartesian second:self.vectorTwoCartesian];
+    } else if (self.isVectorTwo && self.isVectorThree) {
+        self.scalarCartesian = [self scalarProductTwoVectorsCartesian:self.vectorTwoCartesian second:self.vectorThreeCartesian];
+    } else if (self.isVectorOne && self.isVectorThree) {
+        self.scalarCartesian = [self scalarProductTwoVectorsCartesian:self.vectorOneCartesian second:self.vectorThreeCartesian];
+    } else {
+        self.scalarCartesian = 0.0;
+    }
+}
+
+// DO THIS TUAN
+- (void)vectorProduct {
+    // ...
+    
+    self.vectorPolar = [self cartesianToPolar:self.vectorCartesian];
+}
+
+- (CGVector)addTwoVectorsCartesian:(CGVector)first second:(CGVector)second {
+    return CGVectorSum(first, second);
+}
+
+- (CGVector)addThreeVectorsCartesian:(CGVector)first second:(CGVector)second third:(CGVector)third {
+    return CGVectorSum(CGVectorSum(first, second), third);
+}
+
+- (CGFloat)scalarProductTwoVectorsCartesian:(CGVector)first second:(CGVector)second {
+    return first.dx * second.dx + first.dy * second.dy;
+}
+
+- (CGVector)polarToCartesian:(CGVector)polar {
+    return CGVectorMake(polar.dx*cos(polar.dy),polar.dx*sin(polar.dy));
+}
+
+- (CGVector)cartesianToPolar:(CGVector)cartesian {
+    return CGVectorMake(CGVectorLength(cartesian), CGVectorAngle(cartesian));
+}
+
+// DO THIS TUAN
+- (CGVector)vectorProductTwoVectorsCartesian:(CGVector)first second:(CGVector)second {
+    return CGVectorMake(0.0,0.0);
+}
+
+// DO THIS TUAN
+- (CGVector)vectorProductThreeVectorsCartesian:(CGVector)first second:(CGVector)second third:(CGVector)third {
+    return CGVectorMake(0.0,0.0);
 }
 
 @end
