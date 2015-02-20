@@ -20,5 +20,11 @@
 @property (weak, nonatomic) IBOutlet UILabel *sumLabel;
 @property (weak, nonatomic) IBOutlet UILabel *productLabel;
 
+@property int numberVectors;
+
+@property CGVector vectorOne;
+@property CGVector vectorTwo;
+@property CGVector vectorThree;
+
 @end
 

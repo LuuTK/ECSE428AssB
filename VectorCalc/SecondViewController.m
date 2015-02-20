@@ -10,6 +10,8 @@
 
 @interface SecondViewController ()
 
+@property (weak, nonatomic) IBOutlet UIView *graphView;
+
 @end
 
 @implementation SecondViewController

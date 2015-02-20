@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>1BD0CF81-0A8E-4187-9092-54A08540FF66</string>
+	<key>IDESourceControlProjectName</key>
+	<string>VectorCalc</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>42080B9C7790734C4E9099EDA81A1C61A3FC1002</key>
+		<string>https://github.com/LuuTK/ECSE428AssB</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>VectorCalc.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>42080B9C7790734C4E9099EDA81A1C61A3FC1002</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/LuuTK/ECSE428AssB</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>42080B9C7790734C4E9099EDA81A1C61A3FC1002</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>42080B9C7790734C4E9099EDA81A1C61A3FC1002</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ECSE428AssB</string>
+		</dict>
+	</array>
+</dict>
+</plist>
