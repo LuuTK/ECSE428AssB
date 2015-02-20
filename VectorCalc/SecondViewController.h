@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "FirstViewController.h"
+#import "VectorGraphView.h"
 
 @interface SecondViewController : UIViewController
 
+@property (weak,nonatomic) FirstViewController *first;
 
 @end
 

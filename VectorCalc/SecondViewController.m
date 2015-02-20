@@ -10,14 +10,12 @@
 
 @interface SecondViewController ()
 
-@property (weak, nonatomic) IBOutlet UIView *graphView;
+@property (weak, nonatomic) IBOutlet VectorGraphView *graphView;
 @property (weak, nonatomic) IBOutlet UILabel *additionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *productLabel;
 @property (weak, nonatomic) IBOutlet UILabel *vectorOneLabel;
 @property (weak, nonatomic) IBOutlet UILabel *vectorTwoLabel;
 @property (weak, nonatomic) IBOutlet UILabel *vectorThreeLabel;
-
-@property (weak,nonatomic) FirstViewController *first;
 
 @end
 
@@ -27,6 +25,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib
     self.first = [self.tabBarController.viewControllers objectAtIndex:0];
+    self.graphView.transform = CGAffineTransformMakeScale(1, -1);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -40,5 +39,6 @@
     self.vectorOneLabel.text = [NSString stringWithFormat:@"%.2fî %.2fĵ", self.first.vectorOneCartesian.dx, self.first.vectorOneCartesian.dy];
     self.vectorTwoLabel.text = [NSString stringWithFormat:@"%.2fî %.2fĵ", self.first.vectorTwoCartesian.dx, self.first.vectorTwoCartesian.dy];
     self.vectorThreeLabel.text = [NSString stringWithFormat:@"%.2fî %.2fĵ", self.first.vectorThreeCartesian.dx, self.first.vectorThreeCartesian.dy];
+    [self.graphView drawVectorOne:self.first.vectorOneCartesian];
 }
 @end

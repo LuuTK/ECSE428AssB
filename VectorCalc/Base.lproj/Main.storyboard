@@ -310,7 +310,7 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view alpha="0.49999999999999961" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FZ2-ET-wQ4">
+                            <view alpha="0.49999999999999961" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FZ2-ET-wQ4" customClass="VectorGraphView">
                                 <rect key="frame" x="16" y="64" width="288" height="288"/>
                                 <color key="backgroundColor" red="0.35710965246544291" green="0.63512851643985191" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </view>

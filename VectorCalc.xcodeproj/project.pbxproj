@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E934DF041A97E80E00D3C000 /* VectorGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = E934DF031A97E80E00D3C000 /* VectorGraphView.m */; };
 		E9F74FC91A96D2F800AB917D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E9F74FC81A96D2F800AB917D /* main.m */; };
 		E9F74FCC1A96D2F800AB917D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E9F74FCB1A96D2F800AB917D /* AppDelegate.m */; };
 		E9F74FCF1A96D2F800AB917D /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9F74FCE1A96D2F800AB917D /* FirstViewController.m */; };
@@ -29,6 +30,8 @@
 
 /* Begin PBXFileReference section */
 		E934DF011A97B1E700D3C000 /* CGVectorAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGVectorAdditions.h; sourceTree = "<group>"; };
+		E934DF021A97E80E00D3C000 /* VectorGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VectorGraphView.h; sourceTree = "<group>"; };
+		E934DF031A97E80E00D3C000 /* VectorGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VectorGraphView.m; sourceTree = "<group>"; };
 		E9F74FC31A96D2F800AB917D /* VectorCalc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VectorCalc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9F74FC71A96D2F800AB917D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E9F74FC81A96D2F800AB917D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -92,6 +95,8 @@
 				E9F74FCE1A96D2F800AB917D /* FirstViewController.m */,
 				E9F74FD01A96D2F800AB917D /* SecondViewController.h */,
 				E9F74FD11A96D2F800AB917D /* SecondViewController.m */,
+				E934DF021A97E80E00D3C000 /* VectorGraphView.h */,
+				E934DF031A97E80E00D3C000 /* VectorGraphView.m */,
 				E9F74FD31A96D2F800AB917D /* Main.storyboard */,
 				E9F74FD61A96D2F800AB917D /* Images.xcassets */,
 				E9F74FD81A96D2F800AB917D /* LaunchScreen.xib */,
@@ -226,6 +231,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E934DF041A97E80E00D3C000 /* VectorGraphView.m in Sources */,
 				E9F74FD21A96D2F800AB917D /* SecondViewController.m in Sources */,
 				E9F74FCC1A96D2F800AB917D /* AppDelegate.m in Sources */,
 				E9F74FCF1A96D2F800AB917D /* FirstViewController.m in Sources */,
