@@ -10,9 +10,21 @@
 
 @interface FirstViewController ()
 
+@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *leftUnitLabels;
+@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *rightUnitLabels;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentForm;
+
 @end
 
 @implementation FirstViewController
+
+- (IBAction)formChanged:(id)sender {
+    if (self.segmentForm.selectedSegmentIndex == 0) {
+        [self changeToCartesian];
+    } else if (self.segmentForm.selectedSegmentIndex == 1) {
+        [self changeToPolar];
+    }
+}
 
 - (IBAction)computePushed:(id)sender {
 }
@@ -21,34 +33,31 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
+    [self changeToCartesian];
+    [self clearResult];
+    
     self.vectorOneX.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     self.vectorOneX.autocorrectionType = UITextAutocorrectionTypeNo;
-    self.vectorOneX.placeholder = @"X unit";
     self.vectorOneX.delegate = self;
 
     self.vectorOneY.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     self.vectorOneY.autocorrectionType = UITextAutocorrectionTypeNo;
-    self.vectorOneY.placeholder = @"Y unit";
     self.vectorOneY.delegate = self;
 
     self.vectorTwoX.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     self.vectorTwoX.autocorrectionType = UITextAutocorrectionTypeNo;
-    self.vectorTwoX.placeholder = @"X unit";
     self.vectorTwoX.delegate = self;
     
     self.vectorTwoY.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     self.vectorTwoY.autocorrectionType = UITextAutocorrectionTypeNo;
-    self.vectorTwoY.placeholder = @"Y unit";
     self.vectorTwoY.delegate = self;
     
     self.vectorThreeX.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     self.vectorThreeX.autocorrectionType = UITextAutocorrectionTypeNo;
-    self.vectorThreeX.placeholder = @"X unit";
     self.vectorThreeX.delegate = self;
     
     self.vectorThreeY.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     self.vectorThreeY.autocorrectionType = UITextAutocorrectionTypeNo;
-    self.vectorThreeY.placeholder = @"Y unit";
     self.vectorThreeY.delegate = self;
 }
 
@@ -159,6 +168,30 @@
     return (self.vectorOneX.text.length != 0 && self.vectorOneY.text.length != 0 && self.vectorTwoX.text.length != 0 && self.vectorTwoY.text.length != 0) || (self.vectorOneX.text.length != 0 && self.vectorOneY.text.length != 0 && self.vectorThreeX.text.length != 0 && self.vectorThreeY.text.length != 0) || (self.vectorTwoX.text.length != 0 && self.vectorTwoY.text.length != 0 && self.vectorThreeX.text.length != 0 && self.vectorThreeY.text.length != 0) || (self.vectorOneX.text.length != 0 && self.vectorOneY.text.length != 0 && self.vectorTwoX.text.length != 0 && self.vectorTwoY.text.length != 0 && self.vectorThreeX.text.length != 0 && self.vectorThreeY.text.length != 0);
 }
 
+- (void)changeToCartesian {
+    self.isCurrentCartesian = YES;
+    for (UILabel *unitLabel in self.leftUnitLabels) unitLabel.text = @"î";
+    for (UILabel *unitLabel in self.rightUnitLabels) unitLabel.text = @"ĵ";
+    self.vectorOneX.placeholder = @"X unit";
+    self.vectorOneY.placeholder = @"Y unit";
+    self.vectorTwoX.placeholder = @"X unit";
+    self.vectorTwoY.placeholder = @"Y unit";
+    self.vectorThreeX.placeholder = @"X unit";
+    self.vectorThreeY.placeholder = @"Y unit";
+}
+
+- (void)changeToPolar {
+    self.isCurrentCartesian = NO;
+    for (UILabel *unitLabel in self.leftUnitLabels) unitLabel.text = @"ȓ";
+    for (UILabel *unitLabel in self.rightUnitLabels) unitLabel.text = @"°";
+    self.vectorOneX.placeholder = @"norm";
+    self.vectorOneY.placeholder = @"angle";
+    self.vectorTwoX.placeholder = @"norm";
+    self.vectorTwoY.placeholder = @"angle";
+    self.vectorThreeX.placeholder = @"norm";
+    self.vectorThreeY.placeholder = @"angle";
+}
+
 - (NSInteger)numberOfVectors {
     int count = 0;
     if (self.vectorOneX.text.length != 0 && self.vectorOneY.text.length != 0) {
@@ -173,22 +206,18 @@
     return count;
 }
 
-- (float)addTwoVectors:(float)firstVector secondVector:(float)secondVector {
-    return 2.0;
+- (void)compute {
+    
 }
 
-- (float)addThreeVectors:(float)firstVector secondVector:(float)secondVector thirdVector:(float)thirdVector {
-    return 2.0;
+- (void)displayResult {
+    
 }
 
-- (float)multiplyTwoVectors:(float)firstVector secondVector:(float)secondVector {
-    return 2.0;
+- (void)clearResult {
+    self.sumLabel.text = @"";
+    self.scalarLabel.text = @"";
+    self.vectorLabel.text = @"";
 }
 
-- (float)multiplyThreeVectors:(float)firstVector secondVector:(float)secondVector thirdVector:(float)thirdVector {
-    return 2.0;
-}
-
-- (IBAction)computePushed:(id)sender {
-}
 @end
