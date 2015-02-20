@@ -47,9 +47,34 @@
     [vectorPath addLineToPoint:CGPointMake(vectorThree.dx, vectorThree.dy)];
     [vectorPath closePath];
     shapeLayer.path = vectorPath.CGPath;
-    shapeLayer.strokeColor = [UIColor redColor].CGColor;
+    shapeLayer.strokeColor = [UIColor blackColor].CGColor;
     shapeLayer.lineWidth = 4.0;
     [self.layer addSublayer:shapeLayer];
 }
+
+- (void)drawSumVector:(CGVector)vector {
+    CAShapeLayer *shapeLayer = [[CAShapeLayer alloc] init];
+    UIBezierPath *vectorPath = [UIBezierPath bezierPath];
+    [vectorPath moveToPoint:CGPointMake(0.0, 0.0)];
+    [vectorPath addLineToPoint:CGPointMake(vector.dx, vector.dy)];
+    [vectorPath closePath];
+    shapeLayer.path = vectorPath.CGPath;
+    shapeLayer.strokeColor = [UIColor greenColor].CGColor;
+    shapeLayer.lineWidth = 4.0;
+    [self.layer addSublayer:shapeLayer];
+}
+
+- (void)drawProductVector:(CGVector)vector {
+    CAShapeLayer *shapeLayer = [[CAShapeLayer alloc] init];
+    UIBezierPath *vectorPath = [UIBezierPath bezierPath];
+    [vectorPath moveToPoint:CGPointMake(0.0, 0.0)];
+    [vectorPath addLineToPoint:CGPointMake(vector.dx, vector.dy)];
+    [vectorPath closePath];
+    shapeLayer.path = vectorPath.CGPath;
+    shapeLayer.strokeColor = [UIColor purpleColor].CGColor;
+    shapeLayer.lineWidth = 4.0;
+    [self.layer addSublayer:shapeLayer];
+}
+
 
 @end

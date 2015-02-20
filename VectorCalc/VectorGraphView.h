@@ -14,5 +14,7 @@
 - (void)drawVectorOne:(CGVector)vectorOne;
 - (void)drawVectorTwo:(CGVector)vectorTwo;
 - (void)drawVectorThree:(CGVector)vectorThree;
+- (void)drawSumVector:(CGVector)vector;
+- (void)drawProductVector:(CGVector)vector;
 
 @end

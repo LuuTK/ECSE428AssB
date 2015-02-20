@@ -40,5 +40,9 @@
     self.vectorTwoLabel.text = [NSString stringWithFormat:@"%.2fî %.2fĵ", self.first.vectorTwoCartesian.dx, self.first.vectorTwoCartesian.dy];
     self.vectorThreeLabel.text = [NSString stringWithFormat:@"%.2fî %.2fĵ", self.first.vectorThreeCartesian.dx, self.first.vectorThreeCartesian.dy];
     [self.graphView drawVectorOne:self.first.vectorOneCartesian];
+    [self.graphView drawVectorTwo:self.first.vectorTwoCartesian];
+    [self.graphView drawVectorThree:self.first.vectorThreeCartesian];
+    [self.graphView drawSumVector:self.first.sumCartesian];
+    [self.graphView drawProductVector:self.first.vectorCartesian];
 }
 @end
