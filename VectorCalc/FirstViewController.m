@@ -13,7 +13,6 @@
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *leftUnitLabels;
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *rightUnitLabels;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentForm;
-@property BOOL shouldDisplayResults;
 
 @end
 
@@ -223,8 +222,18 @@
     return count;
 }
 
+- (void)resetVectors {
+    self.vectorOneCartesian = CGVectorMake(0.0, 0.0);
+    self.vectorTwoCartesian = CGVectorMake(0.0, 0.0);
+    self.vectorThreeCartesian = CGVectorMake(0.0, 0.0);
+    self.vectorOnePolar = CGVectorMake(0.0, 0.0);
+    self.vectorTwoPolar = CGVectorMake(0.0, 0.0);
+    self.vectorThreePolar = CGVectorMake(0.0, 0.0);
+}
+
 - (void)storeVectors {
     self.numberVectors = [self numberOfVectors];
+    [self resetVectors];
     if (self.isCurrentCartesian == YES) {
         if (self.isVectorOne) {
             self.vectorOneCartesian = CGVectorMake(self.vectorOneX.text.floatValue,self.vectorOneY.text.floatValue);

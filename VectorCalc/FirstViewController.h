@@ -25,6 +25,8 @@
 // YES Cartesian mode - NO Polar mode
 @property BOOL isCurrentCartesian;
 
+@property BOOL shouldDisplayResults;
+
 // Total number of vectors non-nil
 @property NSInteger numberVectors;
 
