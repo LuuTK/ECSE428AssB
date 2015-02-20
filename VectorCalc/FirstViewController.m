@@ -10,12 +10,12 @@
 
 @interface FirstViewController ()
 
-- (IBAction)additionPushed:(id)sender;
-- (IBAction)productPushed:(id)sender;
-
 @end
 
 @implementation FirstViewController
+
+- (IBAction)computePushed:(id)sender {
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -55,14 +55,6 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (IBAction)additionPushed:(id)sender {
-    if ([self isAllValidInput] == NO) return;
-}
-
-- (IBAction)productPushed:(id)sender {
-    if ([self isAllValidInput] == NO) return;
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -197,4 +189,6 @@
     return 2.0;
 }
 
+- (IBAction)computePushed:(id)sender {
+}
 @end

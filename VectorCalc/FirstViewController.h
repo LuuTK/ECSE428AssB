@@ -17,8 +17,14 @@
 @property (weak, nonatomic) IBOutlet UITextField *vectorThreeX;
 @property (weak, nonatomic) IBOutlet UITextField *vectorThreeY;
 
+@property (weak, nonatomic) IBOutlet UISegmentedControl *cartesianOrPolar;
 @property (weak, nonatomic) IBOutlet UILabel *sumLabel;
-@property (weak, nonatomic) IBOutlet UILabel *productLabel;
+@property (weak, nonatomic) IBOutlet UILabel *scalarProductLabel;
+@property (weak, nonatomic) IBOutlet UILabel *vectorProductLabel;
+
+
+
+@property BOOL isCurrentCartesian;
 
 @property int numberVectors;
 
