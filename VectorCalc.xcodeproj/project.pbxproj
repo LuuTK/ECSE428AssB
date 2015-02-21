@@ -29,6 +29,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		17E13B291A992FD200BC7B3A /* CGVectorAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGVectorAdditions.h; sourceTree = "<group>"; };
 		E934DF011A97B1E700D3C000 /* CGVectorAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGVectorAdditions.h; sourceTree = "<group>"; };
 		E934DF021A97E80E00D3C000 /* VectorGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VectorGraphView.h; sourceTree = "<group>"; };
 		E934DF031A97E80E00D3C000 /* VectorGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VectorGraphView.m; sourceTree = "<group>"; };
@@ -117,6 +118,7 @@
 		E9F74FE21A96D2F800AB917D /* VectorCalcTests */ = {
 			isa = PBXGroup;
 			children = (
+				17E13B291A992FD200BC7B3A /* CGVectorAdditions.h */,
 				E9F74FE51A96D2F800AB917D /* VectorCalcTests.m */,
 				E9F74FE31A96D2F800AB917D /* Supporting Files */,
 			);

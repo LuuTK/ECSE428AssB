@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
+#import "CGVectorAdditions.h"
 
 @interface VectorCalcTests : XCTestCase
 
@@ -35,6 +36,15 @@
     [self measureBlock:^{
         // Put the code you want to measure the time of here.
     }];
+}
+
+- (void)testSum {
+    CGVector v1 = CGVectorMake(1, 2);
+    CGVector v2 = CGVectorMake(3, 4);
+    
+    CGVector result = CGVectorSum(v1, v2);
+    XCTAssertEqualWithAccuracy(result.dx, 4, FLT_EPSILON);
+    XCTAssertEqualWithAccuracy(result.dy, 6, FLT_EPSILON);
 }
 
 @end
