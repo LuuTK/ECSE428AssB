@@ -88,6 +88,7 @@
     }
     return YES;
 }
+ 
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     self.shouldDisplayResults = NO;
@@ -101,6 +102,9 @@
         [textField setTextColor:[UIColor redColor]];
     }
 }
+
+
+/*--------------------------------------  TEST  --------------------------------------*/
 
 - (BOOL)isAllValidInput {
     if ([self isAllValidFloats] == NO) {
@@ -143,8 +147,10 @@
         [alert show];
         return NO;
     }
+       
     return YES;
 }
+
 
 - (BOOL)isValidFloat:(NSString*)input {
     BOOL result = NO;
@@ -158,6 +164,7 @@
     result = [regex numberOfMatchesInString:input options:0 range:NSMakeRange(0, [input length])];
     return result;
 }
+
 
 - (BOOL)isAllValidFloats {
     return [self isValidFloat:[self.vectorOneX text]] &&
@@ -177,6 +184,13 @@
 - (BOOL)hasAtLeastTwoVectors {
     return (self.vectorOneX.text.length != 0 && self.vectorOneY.text.length != 0 && self.vectorTwoX.text.length != 0 && self.vectorTwoY.text.length != 0) || (self.vectorOneX.text.length != 0 && self.vectorOneY.text.length != 0 && self.vectorThreeX.text.length != 0 && self.vectorThreeY.text.length != 0) || (self.vectorTwoX.text.length != 0 && self.vectorTwoY.text.length != 0 && self.vectorThreeX.text.length != 0 && self.vectorThreeY.text.length != 0) || (self.vectorOneX.text.length != 0 && self.vectorOneY.text.length != 0 && self.vectorTwoX.text.length != 0 && self.vectorTwoY.text.length != 0 && self.vectorThreeX.text.length != 0 && self.vectorThreeY.text.length != 0);
 }
+
+ 
+
+
+/* --------------------------------------TESTS-------------------------------------- */
+
+
 
 - (void)changeToCartesian {
     self.isCurrentCartesian = YES;
@@ -273,29 +287,19 @@
 - (void)displayResults {
     if (self.shouldDisplayResults == NO) return;
     NSString *sumPrefix = @"The sum is";
-    NSString *vectorPrefix = @"The Vect. Prod. of first 2 vectors is ";
-    NSString *scalarPrefix = @"The scalar product of vectors is";
+    NSString *vectorPrefix = @"Cross Prod. is ";
+    NSString *scalarPrefix = @"Scalar Prod. is";
 
     
     if (self.isCurrentCartesian == YES) {
         
         self.sumLabel.text = [NSString stringWithFormat:@"%@ %.2fî %.2fĵ", sumPrefix, self.sumCartesian.dx, self.sumCartesian.dy];
-        //self.vectorLabel.text = [NSString stringWithFormat:@"%@ %.2fî %.2fĵ", vectorPrefix, self.vectorCartesian.dx, self.vectorCartesian.dy];
-        /*
-        
-        float vectorOneX = self.vectorOneCartesian.dx;
-        float vectorOneY = self.vectorOneCartesian.dy;
-        float vectorTwoX = self.vectorTwoCartesian.dx;
-        float vectorTwoY = self.vectorTwoCartesian.dy;
-        
-        
-        float answer = vectorOneX*vectorTwoY - (vectorOneY * vectorTwoX);
-        _vectorLabel.text = [NSString stringWithFormat:@"%@ %.2f", vectorPrefix, answer];
-*/
+
         if(self.numberVectors > 2){
             self.scalarLabel.text = @"";
             self.vectorLabel.text = @"";
         }else{
+            
             self.scalarLabel.text = [NSString stringWithFormat:@"%@ %.2f", scalarPrefix, self.scalarCartesian];
             self.vectorLabel.text = [NSString stringWithFormat:@"%@ %.2f", vectorPrefix, _vectorCartesian.dx];
             
@@ -353,7 +357,7 @@
     } else if (self.isVectorOne && self.isVectorThree) {
         self.scalarCartesian = [self scalarProductTwoVectorsCartesian:self.vectorOneCartesian second:self.vectorThreeCartesian];
     } else {
-        self.scalarCartesian = 1.0;
+        self.scalarCartesian = 0.0;
     }
 }
 
@@ -366,7 +370,7 @@
     } else if (self.isVectorOne && self.isVectorThree) {
         _vectorCartesian.dx = [self vectorProductTwoVectorsCartesian:self.vectorOneCartesian second:self.vectorThreeCartesian];
     } else {
-        _vectorCartesian.dx = 1.0;
+        _vectorCartesian.dx = 0.0;
     }
     _vectorPolar.dx = [self vectorProductTwoVectorsPolar:self.vectorOneCartesian second:self.vectorTwoCartesian];
 }
@@ -391,7 +395,6 @@
     return CGVectorMake(CGVectorLength(cartesian), CGVectorAngle(cartesian));
 }
 
-// DO THIS TUAN
 //U x V = Ux*Vy - Uy*Vx
 - (CGFloat)vectorProductTwoVectorsCartesian:(CGVector)first second:(CGVector)second {
     return CGVectorCrossProduct(first, second);
@@ -413,7 +416,6 @@
     return answerCrossPolar;
 }
 
-// DO THIS TUAN
 - (CGVector)vectorProductThreeVectorsCartesian:(CGVector)first second:(CGVector)second third:(CGVector)third {
     return CGVectorMake(0.0,0.0);
 }

@@ -79,7 +79,6 @@ CG_INLINE bool __CGVectorEqualToVector(CGVector vector1, CGVector vector2);
 /* Determine if two vectors are perpendicular */
 CG_INLINE bool __CGVectorPerpendicularToVector(CGVector vector1, CGVector vector2);
 
-
 #pragma mark -
 #pragma mark Implementations
 #pragma mark -
@@ -287,6 +286,7 @@ CGVectorDistance(CGVector vectorStart, CGVector vectorEnd)
     return CGVectorLength(CGVectorDifference(vectorEnd, vectorStart));
 }
 
+
 CG_INLINE bool
 __CGVectorEqualToVector(CGVector vector1, CGVector vector2)
 {
@@ -303,3 +303,7 @@ __CGVectorPerpendicularToVector(CGVector vector1, CGVector vector2)
 #define CGVectorOrthogonalToVector __CGVectorPerpendicularToVector
 
 #endif /* __CG_VECTOR_ADDITIONS_H */
+
+
+
+
