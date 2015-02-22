@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 #import "CGVectorAdditions.h"
+#import "FirstViewController.h"
 
 @interface VectorCalcTests : XCTestCase
 
@@ -37,14 +38,84 @@
         // Put the code you want to measure the time of here.
     }];
 }
-
+//Basic test for a summation
 - (void)testSum {
     CGVector v1 = CGVectorMake(1, 2);
     CGVector v2 = CGVectorMake(3, 4);
+    CGVector v3 = CGVectorMake(0,10);
     
     CGVector result = CGVectorSum(v1, v2);
-    XCTAssertEqualWithAccuracy(result.dx, 4, FLT_EPSILON);
-    XCTAssertEqualWithAccuracy(result.dy, 6, FLT_EPSILON);
+    CGVector result2 = CGVectorSum(result, v3);
+    
+    XCTAssertEqualWithAccuracy(result2.dx, 4, FLT_EPSILON);
+    XCTAssertEqualWithAccuracy(result2.dy, 16, FLT_EPSILON);
 }
+
+//Basic test for a summation with negative numbers
+- (void)testSumWithNegativeNumbers {
+    CGVector v1 = CGVectorMake(1, 2);
+    CGVector v2 = CGVectorMake(3, 4);
+    CGVector v3 = CGVectorMake(0,-10);
+    
+    CGVector result = CGVectorSum(v1, v2);
+    CGVector result2 = CGVectorSum(result, v3);
+   
+    
+    XCTAssertEqualWithAccuracy(result2.dx, 4, FLT_EPSILON);
+    XCTAssertEqualWithAccuracy(result2.dy, -4, FLT_EPSILON);
+}
+
+//Basic test for a summation
+- (void)testSumDecimalNumbers {
+    CGVector v1 = CGVectorMake(1.545134, 2.13413415);
+    CGVector v2 = CGVectorMake(3.13241351, 4.523451324);
+    CGVector v3 = CGVectorMake(0.13415123,10.413251341);
+    
+    CGVector result = CGVectorSum(v1, v2);
+    CGVector result2 = CGVectorSum(result, v3);
+    
+    XCTAssertEqualWithAccuracy(result2.dx, 4.81169874, FLT_EPSILON);
+    XCTAssertEqualWithAccuracy(result2.dy, 17.070836815, FLT_EPSILON);
+}
+
+//Dot Product
+- (void)testVectorDotProduct {
+    CGVector v1 = CGVectorMake(2.25, 5.61);
+    CGVector v2 = CGVectorMake(3.36, 6.19);
+    
+    double result = CGVectorDotProduct(v1, v2);
+    
+    XCTAssertEqualWithAccuracy(result, 42.2859, FLT_EPSILON);
+}
+
+- (void)testVectorDotProductScalar {
+    CGVector v1 = CGVectorMake(2.23, 64.3);
+    CGVector v2 = CGVectorMake(5, 53.1);
+    
+    double result = CGVectorDotProductScalarPolar(v1, v2);
+    
+    XCTAssertEqualWithAccuracy((round(result * 100)/100.0), 10.94, FLT_EPSILON);
+}
+
+- (void)testCrossProduct {
+    CGVector v1 = CGVectorMake(1.41, 2.25);
+    CGVector v2 = CGVectorMake(3.90, 4.50);
+    
+    double result = CGVectorCrossProduct(v1, v2);
+    
+    XCTAssertEqualWithAccuracy(result, -2.43, FLT_EPSILON);
+}
+
+//
+- (void)testCrossProductPolar {
+    CGVector v1 = CGVectorMake(2.23, 64.3);
+    CGVector v2 = CGVectorMake(5, 53.1);
+    
+    double result = CGVectorCrossProductPolar(v1, v2);
+    
+    XCTAssertEqualWithAccuracy((round(result * 100)/100.0), -2.17, FLT_EPSILON);
+}
+
+//CGVectorMultiply
 
 @end

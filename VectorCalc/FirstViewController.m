@@ -267,20 +267,21 @@
     self.shouldDisplayResults = YES;
     [self addition];
     [self scalarProduct];
-   // [self vectorProduct];
+    [self vectorProduct];
 }
 
 - (void)displayResults {
     if (self.shouldDisplayResults == NO) return;
     NSString *sumPrefix = @"The sum is";
     NSString *vectorPrefix = @"The Vect. Prod. of first 2 vectors is ";
-    NSString *scalarPrefix = @"The scalar product is";
+    NSString *scalarPrefix = @"The scalar product of vectors is";
 
     
     if (self.isCurrentCartesian == YES) {
+        
         self.sumLabel.text = [NSString stringWithFormat:@"%@ %.2fî %.2fĵ", sumPrefix, self.sumCartesian.dx, self.sumCartesian.dy];
         //self.vectorLabel.text = [NSString stringWithFormat:@"%@ %.2fî %.2fĵ", vectorPrefix, self.vectorCartesian.dx, self.vectorCartesian.dy];
-        
+        /*
         
         float vectorOneX = self.vectorOneCartesian.dx;
         float vectorOneY = self.vectorOneCartesian.dy;
@@ -290,27 +291,43 @@
         
         float answer = vectorOneX*vectorTwoY - (vectorOneY * vectorTwoX);
         _vectorLabel.text = [NSString stringWithFormat:@"%@ %.2f", vectorPrefix, answer];
-
+*/
+        if(self.numberVectors > 2){
+            self.scalarLabel.text = @"";
+            self.vectorLabel.text = @"";
+        }else{
+            self.scalarLabel.text = [NSString stringWithFormat:@"%@ %.2f", scalarPrefix, self.scalarCartesian];
+            self.vectorLabel.text = [NSString stringWithFormat:@"%@ %.2f", vectorPrefix, _vectorCartesian.dx];
+            
+        }
     
     } else if (self.isCurrentCartesian == NO) {
+        
         self.sumLabel.text = [NSString stringWithFormat:@"%@ %.2fȓ %.2f°", sumPrefix, self.sumPolar.dx, self.sumPolar.dy];
+       
+        
+        
         float vectorOneX = _vectorOnePolar.dx * cos((_vectorOnePolar.dy)*M_PI/180);
         float vectorOneY = _vectorOnePolar.dx * sin((_vectorOnePolar.dy)*M_PI/180);
         float vectorTwoX = _vectorTwoPolar.dx * cos((_vectorTwoPolar.dy)*M_PI/180);
         float vectorTwoY = _vectorTwoPolar.dx * sin((_vectorTwoPolar.dy)*M_PI/180);
 
-        double answer = vectorOneX*vectorTwoY - (vectorOneY * vectorTwoX);
+        double answerCrossPolar = vectorOneX*vectorTwoY - (vectorOneY * vectorTwoX);
+        double answerScalarPolar = vectorOneX * vectorTwoX + vectorOneY * vectorTwoY;
       
-        
-        _vectorLabel.text = [NSString stringWithFormat:@"%@ %.2f", vectorPrefix, answer];
+        if(self.numberVectors > 2){
+            self.scalarLabel.text = @"";
+            self.vectorLabel.text = @"";
+        }else{
+            _scalarLabel.text = [NSString stringWithFormat:@"%@ %.2f", scalarPrefix, answerScalarPolar];
+            _vectorLabel.text = [NSString stringWithFormat:@"%@ %.2f", vectorPrefix, answerCrossPolar];
+            
+        }
+
+        //_vectorLabel.text = [NSString stringWithFormat:@"%@ %.2f", vectorPrefix, _vectorPolar.dx];
+        //self.vectorLabel.text = [NSString stringWithFormat:@"%@ %.2f", vectorPrefix, _vectorPolar.dx];
     }
 
-    // Scalar product
-    if (self.numberVectors > 2) {
-        self.scalarLabel.text = @"";
-    } else {
-        self.scalarLabel.text = [NSString stringWithFormat:@"%@ %.2f", scalarPrefix, self.scalarCartesian];
-    }
 
 }
 
@@ -342,21 +359,16 @@
 
 // DO THIS TUAN
 - (void)vectorProduct {
-    if(self.isVectorOne && self.isVectorTwo){
-        float vectorOneX = self.vectorOneCartesian.dx;
-        float vectorOneY = self.vectorOneCartesian.dy;
-        float vectorTwoX = self.vectorTwoCartesian.dx;
-        float vectorTwoY = self.vectorTwoCartesian.dy;
-       // [vectorLabel setText: [NSString stringWithFormat:@"%fi + %fj", vectorOneA + vectorTwoA vectorThreeA, vectorOneB + vectorTwoB + vectorThreeB]];
-        _vectorLabel.text = [NSString stringWithFormat:@"%fi + %fj", vectorOneX + vectorTwoX, vectorOneX + vectorTwoX];
-    }else{
-        _vectorLabel.text = [NSString stringWithFormat:@"%fi", 1.0];
+    if (self.isVectorOne && self.isVectorTwo) {
+        _vectorCartesian.dx = [self vectorProductTwoVectorsCartesian:self.vectorOneCartesian second:self.vectorTwoCartesian];
+    } else if (self.isVectorTwo && self.isVectorThree) {
+        _vectorCartesian.dx = [self vectorProductTwoVectorsCartesian:self.vectorTwoCartesian second:self.vectorThreeCartesian];
+    } else if (self.isVectorOne && self.isVectorThree) {
+        _vectorCartesian.dx = [self vectorProductTwoVectorsCartesian:self.vectorOneCartesian second:self.vectorThreeCartesian];
+    } else {
+        _vectorCartesian.dx = 1.0;
     }
-    // ...
-    
-    /* [firstView_answer setText: [NSString stringWithFormat:@"%fi + %fj", vectorOneA + vectorTwoA + vectorThreeA, vectorOneB + vectorTwoB + vectorThreeB]];
-    */
-    self.vectorPolar = [self cartesianToPolar:self.vectorCartesian];
+    _vectorPolar.dx = [self vectorProductTwoVectorsPolar:self.vectorOneCartesian second:self.vectorTwoCartesian];
 }
 
 - (CGVector)addTwoVectorsCartesian:(CGVector)first second:(CGVector)second {
@@ -381,8 +393,24 @@
 
 // DO THIS TUAN
 //U x V = Ux*Vy - Uy*Vx
-- (double)vectorProductTwoVectorsCartesian:(CGVector)first second:(CGVector)second {
-    return (first.dx * second.dy -(first.dy*second.dx));
+- (CGFloat)vectorProductTwoVectorsCartesian:(CGVector)first second:(CGVector)second {
+    return CGVectorCrossProduct(first, second);
+}
+- (CGFloat)vectorProductTwoVectorsPolar:(CGVector)first second:(CGVector)second {
+    
+    CGVector v1 = [self polarToCartesian:first];
+    CGVector v2 = [self polarToCartesian:second];
+    
+    float vectorOneX = v1.dx * cos((v1.dy)*M_PI/180);
+    float vectorOneY = v1.dx * sin((v1.dy)*M_PI/180);
+    float vectorTwoX = v2.dx * cos((v2.dy)*M_PI/180);
+    float vectorTwoY = v2.dx * sin((v2.dy)*M_PI/180);
+    
+    double answerCrossPolar = vectorOneX*vectorTwoY - (vectorOneY * vectorTwoX);
+    
+    
+    
+    return answerCrossPolar;
 }
 
 // DO THIS TUAN

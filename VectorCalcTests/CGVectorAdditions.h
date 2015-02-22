@@ -37,8 +37,17 @@ CG_INLINE CGVector CGVectorDifference(CGVector vector1, CGVector vector2);
 /* Multiply two vectors */
 CG_INLINE CGVector CGVectorMultiply(CGVector vector1, CGVector vector2);
 
+/* Cross Product of two vectors */
+CG_INLINE CGFloat CGVectorCrossProduct(CGVector vector1, CGVector vector2);
+
+/* Cross Product of two vectors */
+CG_INLINE CGFloat CGVectorCrossProductPolar(CGVector vector1, CGVector vector2);
+
 /* Multiply a vector by a single scalar */
 CG_INLINE CGVector CGVectorMultiplyByScalar(CGVector vector, CGFloat scalar);
+
+/* Dot Product Polar */
+CG_INLINE CGFloat CGVectorDotProductScalarPolar(CGVector vector1, CGVector vector2);
 
 /* Normalize a vector. This scales the length of the vector to 1 */
 CG_INLINE CGVector CGVectorNormalize(CGVector vector);
@@ -132,12 +141,12 @@ CGVectorMultiplyByScalar(CGVector vector, CGFloat value)
 CG_INLINE CGVector
 CGVectorNormalize(CGVector vector)
 {
-	CGFloat length = CGVectorLength(vector);
-	
-	if (length == 0) {
-		return CGVectorMake(0, 0);
-	}
-
+    CGFloat length = CGVectorLength(vector);
+    
+    if (length == 0) {
+        return CGVectorMake(0, 0);
+    }
+    
     CGFloat scale = 1.0f / length;
     return CGVectorMultiplyByScalar(vector, scale);
 }
@@ -153,19 +162,19 @@ CGVectorAngleBetween(CGVector vector1, CGVector vector2)
 {
     CGFloat dot = CGVectorDotProduct(vector1, vector2);
     CGFloat magnitude = CGVectorLength(vector1) * CGVectorLength(vector2);
-
-	if (magnitude == 0) {
-		return 0;
-	}
-	
-	CGFloat tmp = dot / magnitude;
-	
-	if (tmp > 1.0f) {
-		tmp = 1.0f;
-	} else if (tmp < -1.0f) {
-		tmp = -1.0f;
-	}
-	
+    
+    if (magnitude == 0) {
+        return 0;
+    }
+    
+    CGFloat tmp = dot / magnitude;
+    
+    if (tmp > 1.0f) {
+        tmp = 1.0f;
+    } else if (tmp < -1.0f) {
+        tmp = -1.0f;
+    }
+    
     return acosf( tmp );
 }
 
@@ -193,6 +202,71 @@ CGVectorDotProduct(CGVector vector1, CGVector vector2)
     return vector1.dx * vector2.dx + vector1.dy * vector2.dy;
 #endif
 }
+
+CG_INLINE CGFloat
+CGVectorDotProductScalarPolar(CGVector v1, CGVector v2)
+{
+#if defined(__ARM_NEON__) && !CGFLOAT_IS_DOUBLE
+    float32x2_t v = vmul_f32(*(float32x2_t *)&vector1,
+                             *(float32x2_t *)&vector2);
+    v = vpadd_f32(v, v);
+    return vget_lane_f32(v, 0);
+#else
+    
+    float vectorOneX = v1.dx * cos((v1.dy)*M_PI/180);
+    float vectorOneY = v1.dx * sin((v1.dy)*M_PI/180);
+    float vectorTwoX = v2.dx * cos((v2.dy)*M_PI/180);
+    float vectorTwoY = v2.dx * sin((v2.dy)*M_PI/180);
+    
+    double answerCrossPolar = vectorOneX * vectorTwoX + vectorOneY * vectorTwoY;
+    
+    
+    
+    return answerCrossPolar;
+    
+    // return (vector1.dx * vector2.dy - (vector2.dx * vector1.dy));
+#endif
+}
+
+CG_INLINE CGFloat
+CGVectorCrossProduct(CGVector vector1, CGVector vector2)
+{
+#if defined(__ARM_NEON__) && !CGFLOAT_IS_DOUBLE
+    float32x2_t v = vmul_f32(*(float32x2_t *)&vector1,
+                             *(float32x2_t *)&vector2);
+    v = vpadd_f32(v, v);
+    return vget_lane_f32(v, 0);
+#else
+    return (vector1.dx * vector2.dy - (vector2.dx * vector1.dy));
+#endif
+}
+
+CG_INLINE CGFloat
+CGVectorCrossProductPolar(CGVector v1, CGVector v2)
+{
+#if defined(__ARM_NEON__) && !CGFLOAT_IS_DOUBLE
+    float32x2_t v = vmul_f32(*(float32x2_t *)&vector1,
+                             *(float32x2_t *)&vector2);
+    v = vpadd_f32(v, v);
+    return vget_lane_f32(v, 0);
+#else
+    
+    float vectorOneX = v1.dx * cos((v1.dy)*M_PI/180);
+    float vectorOneY = v1.dx * sin((v1.dy)*M_PI/180);
+    float vectorTwoX = v2.dx * cos((v2.dy)*M_PI/180);
+    float vectorTwoY = v2.dx * sin((v2.dy)*M_PI/180);
+    
+    double answerCrossPolar = vectorOneX*vectorTwoY - (vectorOneY * vectorTwoX);
+    
+    
+    
+    return answerCrossPolar;
+    
+    // return (vector1.dx * vector2.dy - (vector2.dx * vector1.dy));
+#endif
+}
+
+
 
 CG_INLINE CGFloat
 CGVectorLength(CGVector vector)
@@ -227,5 +301,5 @@ __CGVectorPerpendicularToVector(CGVector vector1, CGVector vector2)
 }
 #define CGVectorPerpendicularToVector __CGVectorPerpendicularToVector
 #define CGVectorOrthogonalToVector __CGVectorPerpendicularToVector
-    
+
 #endif /* __CG_VECTOR_ADDITIONS_H */

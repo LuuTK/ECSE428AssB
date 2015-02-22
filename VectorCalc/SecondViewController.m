@@ -35,7 +35,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     self.additionLabel.text = [NSString stringWithFormat:@"%.2fî %.2fĵ", self.first.sumCartesian.dx, self.first.sumCartesian.dy];
-    self.productLabel.text = [NSString stringWithFormat:@"%.2fî %.2fĵ", self.first.vectorCartesian.dx, self.first.vectorCartesian.dy];
+   self.productLabel.text = [NSString stringWithFormat:@""];
     self.vectorOneLabel.text = [NSString stringWithFormat:@"%.2fî %.2fĵ", self.first.vectorOneCartesian.dx, self.first.vectorOneCartesian.dy];
     self.vectorTwoLabel.text = [NSString stringWithFormat:@"%.2fî %.2fĵ", self.first.vectorTwoCartesian.dx, self.first.vectorTwoCartesian.dy];
     self.vectorThreeLabel.text = [NSString stringWithFormat:@"%.2fî %.2fĵ", self.first.vectorThreeCartesian.dx, self.first.vectorThreeCartesian.dy];
